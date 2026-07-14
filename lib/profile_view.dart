@@ -11,6 +11,33 @@ class _ProfileViewState extends State<ProfileView> {
   List<String> friendList = ["Shayan", "Hasnain" , "Umer"];
   TextEditingController friendListController = TextEditingController();
   TextEditingController updateItemController = TextEditingController();
+
+  updateItem(index){
+    updateItemController.text = friendList[index];
+    showDialog(
+      // barrierDismissible: false,
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text("Update Value"),
+            content: TextField(
+              controller: updateItemController,
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: (){
+                    setState(() {
+                      friendList[index] = updateItemController.text;
+
+                    });
+                    updateItemController.clear();
+                    Navigator.pop(context);
+                  },
+                  child: Text("Update")),
+            ],
+          );
+        });
+  }
   addItem(){
     setState(() {
       friendList.add("value");
@@ -40,34 +67,33 @@ class _ProfileViewState extends State<ProfileView> {
         ],
       ),
       body: SafeArea(
-          child: Column(
-            children: [
-              Container(
-                height: 200,
-                color: Colors.red,
-              ),
-              Expanded(
-                child: ListView.builder(
-                  // shrinkWrap: true,
-                  // physics: NeverScrollableScrollPhysics(),
-                  itemCount: 20,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 2),
-                        child: ListTile(
-                          tileColor: Colors.grey,
-                          title: Text("$index"),
-                          trailing: IconButton(
-                              onPressed: (){
+          child: ListView.builder(
+            // shrinkWrap: true,
+            // physics: NeverScrollableScrollPhysics(),
+            itemCount: friendList.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.only(bottom: 2),
+                  child: ListTile(
+                    tileColor: Colors.grey,
+                    title: Text(friendList[index]),
+                    trailing: Wrap(
+                      children: [
+                        IconButton(
+                            onPressed: (){
+                              updateItem(index);
+                            },
+                            icon: const Icon(Icons.edit)),
+                        IconButton(
+                            onPressed: (){
                               removeItem(meraBanayahuaApnaParameterJoValuePassKarega: index);
-                              },
-                              icon: const Icon(Icons.delete)),
-                        ),
-                      );
-                    },
-                ),
-              ),
-            ],
+                            },
+                            icon: const Icon(Icons.delete)),
+                      ],
+                    ),
+                  ),
+                );
+              },
           )),
     );
   }
