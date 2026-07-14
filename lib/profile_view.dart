@@ -8,92 +8,20 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  List<String> friendList = ["Shayan", "Hasnain" , "Umer"];
-  TextEditingController friendListController = TextEditingController();
-  TextEditingController updateItemController = TextEditingController();
-
-  updateItem(index){
-    updateItemController.text = friendList[index];
-    showDialog(
-      // barrierDismissible: false,
-        context: context,
-        builder: (context){
-          return AlertDialog(
-            title: Text("Update Value"),
-            content: TextField(
-              controller: updateItemController,
-            ),
-            actions: [
-              ElevatedButton(
-                  onPressed: (){
-                    setState(() {
-                      friendList[index] = updateItemController.text;
-
-                    });
-                    updateItemController.clear();
-                    Navigator.pop(context);
-                  },
-                  child: Text("Update")),
-            ],
-          );
-        });
-  }
-  addItem(){
-    setState(() {
-      friendList.add("value");
-    });
-  }
-  removeItem({meraBanayahuaApnaParameterJoValuePassKarega}){
-    setState(() {
-      friendList.removeAt(meraBanayahuaApnaParameterJoValuePassKarega);
-    });
-  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          controller: friendListController,
-        ),
-        actions: [
-          ElevatedButton(onPressed: (){
-            setState(() {
-              friendList.add(friendListController.text);
-              friendListController.clear();
-            });
-          },
-              child: const Text("Add Item"),
-          ),
-        ],
-      ),
       body: SafeArea(
-          child: ListView.builder(
-            // shrinkWrap: true,
-            // physics: NeverScrollableScrollPhysics(),
-            itemCount: friendList.length,
-              itemBuilder: (context, index) {
-                return Container(
-                  margin: EdgeInsets.only(bottom: 2),
-                  child: ListTile(
-                    tileColor: Colors.grey,
-                    title: Text(friendList[index]),
-                    trailing: Wrap(
-                      children: [
-                        IconButton(
-                            onPressed: (){
-                              updateItem(index);
-                            },
-                            icon: const Icon(Icons.edit)),
-                        IconButton(
-                            onPressed: (){
-                              removeItem(meraBanayahuaApnaParameterJoValuePassKarega: index);
-                            },
-                            icon: const Icon(Icons.delete)),
-                      ],
-                    ),
-                  ),
-                );
-              },
+          child: Column(
+            children: [
+              // Image.network(
+              //     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ-SkOkBPUHy9tNLoFgp19Ckax6TFKHFwTN27K3JEtlfhap9bDe9PQ_ME8p&s=10",
+              //     width: 200,
+              // ),
+              Image.asset("assets/images/BMW1.jpg"),
+
+              Image.asset("assets/images/BMW2.webp"),
+            ],
           )),
     );
   }
