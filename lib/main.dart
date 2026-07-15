@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterexplaination/gridview.dart';
 import 'package:flutterexplaination/profile_view.dart';
 
 void main(){
@@ -12,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: ProfileView(),
+      home: GridviewExample(),
     );
   }
 }
